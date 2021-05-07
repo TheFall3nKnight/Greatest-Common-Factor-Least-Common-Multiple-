@@ -23,10 +23,6 @@ func gcf (nums: Array<Int>) -> Int? {
     return commonFactors.max()
 }
 
-let numsList = [1500, 750, 500, 2500]
-let GCF = gcf(nums: numsList)
-print(GCF ?? "None")
-
 func gcfEuclid (a: Int, b: Int) -> Int {
     if b == 0 {return a}
     return gcfEuclid(a: b, b: a % b)
@@ -46,8 +42,6 @@ func gcfMultiple (nums:[Int]) -> Int {
     }
 }
 
-print("GCF:",gcfMultiple(nums: [1500, 750, 500, 2500]))
-
 func lcm (nums: [Int]) -> Int {
     var newNums = nums
     if newNums.count == 1 {
@@ -62,4 +56,10 @@ func lcm (nums: [Int]) -> Int {
     }
 }
 
+// GCF
+var nums = [4,8,6] // Edit the List
+print("GCF:", gcfMultiple(nums: nums))
 
+// LCM
+var nums2 = [5, 10, 25] // Edit the List
+print("LCM:", lcm(nums: nums2))

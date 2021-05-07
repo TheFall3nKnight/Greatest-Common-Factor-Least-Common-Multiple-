@@ -1,0 +1,65 @@
+import UIKit
+
+func gcf (nums: Array<Int>) -> Int? {
+    let minVal = nums.min()
+    var commonFactors =  [Int]()
+
+    for factor in 2...minVal! {
+        var next : Bool = true
+        for num in nums {
+            if num % factor != 0 {
+                next = false
+                break
+            }
+        }
+        if next {
+            commonFactors.append(factor)
+        }
+    }
+
+    if commonFactors.isEmpty {
+        return nil
+    }
+    return commonFactors.max()
+}
+
+let numsList = [1500, 750, 500, 2500]
+let GCF = gcf(nums: numsList)
+print(GCF ?? "None")
+
+func gcfEuclid (a: Int, b: Int) -> Int {
+    if b == 0 {return a}
+    return gcfEuclid(a: b, b: a % b)
+}
+
+func gcfMultiple (nums:[Int]) -> Int {
+    var newNums = nums
+    if newNums.count == 1 {
+        return newNums[0]
+    } else if newNums.count == 2 {
+        return gcfEuclid(a: newNums[0], b: newNums[1])
+    } else {
+        let a = newNums.removeFirst()
+        let b = newNums.removeFirst()
+        newNums.append(gcfEuclid(a: a, b: b))
+        return gcfMultiple(nums: newNums)
+    }
+}
+
+print("GCF:",gcfMultiple(nums: [1500, 750, 500, 2500]))
+
+func lcm (nums: [Int]) -> Int {
+    var newNums = nums
+    if newNums.count == 1 {
+        return newNums[0]
+    } else if newNums.count == 2 {
+        return newNums[0] * newNums[1] / gcfEuclid(a: newNums[0], b: newNums[1])
+    } else {
+        let a = newNums.remove(at: 0)
+        let b = newNums.remove(at: 0)
+        newNums.append(a * b / gcfEuclid(a: a, b: b))
+        return lcm(nums: newNums)
+    }
+}
+
+
